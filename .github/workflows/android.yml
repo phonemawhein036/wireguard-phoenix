@@ -28,8 +28,21 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew assembleDebug
       
+    - name: Find and Upload APK
+      run: |
+        echo "🔍 Searching for APK files..."
+        find . -name "*.apk" -type f | tee apk-list.txt
+        echo "📋 APK files found:"
+        cat apk-list.txt
+        echo "📂 Creating output directory..."
+        mkdir -p apk-output
+        echo "📦 Copying APK files..."
+        find . -name "*.apk" -type f -exec cp {} apk-output/ \;
+        echo "✅ APK files in output directory:"
+        ls -la apk-output/
+        
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: PhoeniX-VPN
-        path: app/build/outputs/apk/debug/app-debug.apk  # တိတိကျကျထည့်ပေး
+        path: apk-output/
