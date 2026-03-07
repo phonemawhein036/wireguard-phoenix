@@ -15,8 +15,6 @@ import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
-import com.eightbitlab.blurview.BlurView
-import com.eightbitlab.blurview.RenderScriptBlur
 import com.wireguard.android.R
 import com.wireguard.android.fragment.TunnelDetailFragment
 import com.wireguard.android.fragment.TunnelEditorFragment
@@ -61,31 +59,13 @@ class MainActivity : BaseActivity(), FragmentManager.OnBackStackChangedListener 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         
-        // BlurView ကို Initialize လုပ်
-        setupBlurView()
+        // BlurView ကိုဖျက်လိုက်ပြီ
         
         actionBar = supportActionBar
         isTwoPaneLayout = findViewById<View?>(R.id.master_detail_wrapper) != null
         supportFragmentManager.addOnBackStackChangedListener(this)
         backPressedCallback = onBackPressedDispatcher.addCallback(this) { handleBackPressed() }
         onBackStackChanged()
-    }
-    
-    private fun setupBlurView() {
-        try {
-            val blurView = findViewById<BlurView>(R.id.blurView)
-            val rootView = window.decorView
-            val windowBackground = window.decorView.background
-            
-            blurView.setupWith(rootView)
-                .setFrameClearDrawable(windowBackground)
-                .setBlurRadius(16f)
-                .setBlurAlgorithm(RenderScriptBlur(this))
-                .setBlurEnabled(true)
-        } catch (e: Exception) {
-            // Blur Effect မရရင် Error မပြဘဲ ဆက်သွား
-            e.printStackTrace()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
