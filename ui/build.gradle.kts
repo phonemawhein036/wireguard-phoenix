@@ -82,8 +82,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     coreLibraryDesugaring(libs.desugarJdkLibs)
     
-    // Blur Library - JitPack version
-    implementation("com.github.Dimezis:BlurView:version-1.6.6")
+    // Blur Library ကိုဖျက်လိုက်ပြီ
 }
 
 tasks.withType<JavaCompile>().configureEach {
