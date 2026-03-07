@@ -112,12 +112,7 @@ publishing {
             }
         }
     }
-    repositories {
-        maven {
-            name = "SonatypeUpload"
-            setUrl(layout.buildDirectory.dir("sonatype"))
-        }
-    }
+    // repositories ပိုင်းကို ဖျက်လိုက်တယ်
 }
 
 val releasePublication = publishing.publications.named("release").get() as MavenPublication
