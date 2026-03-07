@@ -82,8 +82,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     coreLibraryDesugaring(libs.desugarJdkLibs)
     
-    // Blur Library
-    implementation("com.github.furkankaplan:fk-blur-view-android:1.0.1")
+    // Blur Library - FKBlurView ကိုဖျက်ပြီး BlurView အသစ်ထည့်
+    implementation("com.eightbitlab:blurview:1.6.6")
 }
 
 tasks.withType<JavaCompile>().configureEach {
