@@ -15,6 +15,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
+import com.github.furkankaplan.fkblurview.FKBlurView
 import com.wireguard.android.R
 import com.wireguard.android.fragment.TunnelDetailFragment
 import com.wireguard.android.fragment.TunnelEditorFragment
@@ -58,11 +59,25 @@ class MainActivity : BaseActivity(), FragmentManager.OnBackStackChangedListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
+        
+        // BlurView ကို Initialize လုပ်
+        setupBlurView()
+        
         actionBar = supportActionBar
         isTwoPaneLayout = findViewById<View?>(R.id.master_detail_wrapper) != null
         supportFragmentManager.addOnBackStackChangedListener(this)
         backPressedCallback = onBackPressedDispatcher.addCallback(this) { handleBackPressed() }
         onBackStackChanged()
+    }
+    
+    private fun setupBlurView() {
+        try {
+            val blurView = findViewById<FKBlurView>(R.id.blurView)
+            blurView.setBlur(this, blurView)
+        } catch (e: Exception) {
+            // Blur Effect မရရင် Error မပြဘဲ ဆက်သွား
+            e.printStackTrace()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
