@@ -20,14 +20,14 @@
         android:src="@drawable/phoenix"
         android:visibility="visible" />
 
-    <!-- Blur View - ဖန်သားအလွှာ (အသစ်ပြောင်းထားသည်) -->
+    <!-- Blur View - ဖန်သားအလွှာ (ပြင်ဆင်ပြီး) -->
     <com.eightbitlab.blurview.BlurView
         android:id="@+id/blurView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:blurRadius="16dp"
         app:downsampleFactor="4"
-        app:overlayColor="@color/glass_background" />
+        android:background="@color/glass_background" />
 
     <!-- မူရင်း Fragment Container -->
     <androidx.fragment.app.FragmentContainerView
