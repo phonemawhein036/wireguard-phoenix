@@ -15,7 +15,8 @@ import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
-import com.github.furkankaplan.fkblurview.FKBlurView
+import com.eightbitlab.blurview.BlurView
+import com.eightbitlab.blurview.RenderScriptBlur
 import com.wireguard.android.R
 import com.wireguard.android.fragment.TunnelDetailFragment
 import com.wireguard.android.fragment.TunnelEditorFragment
@@ -72,8 +73,15 @@ class MainActivity : BaseActivity(), FragmentManager.OnBackStackChangedListener 
     
     private fun setupBlurView() {
         try {
-            val blurView = findViewById<FKBlurView>(R.id.blurView)
-            blurView.setBlur(this, blurView)
+            val blurView = findViewById<BlurView>(R.id.blurView)
+            val rootView = window.decorView
+            val windowBackground = window.decorView.background
+            
+            blurView.setupWith(rootView)
+                .setFrameClearDrawable(windowBackground)
+                .setBlurRadius(16f)
+                .setBlurAlgorithm(RenderScriptBlur(this))
+                .setBlurEnabled(true)
         } catch (e: Exception) {
             // Blur Effect မရရင် Error မပြဘဲ ဆက်သွား
             e.printStackTrace()
