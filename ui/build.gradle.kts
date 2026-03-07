@@ -64,10 +64,6 @@ android {
     }
 }
 
-repositories {
-    maven("https://jitpack.io")
-}
-
 dependencies {
     implementation(project(":tunnel"))
     implementation(libs.androidx.activity.ktx)
@@ -86,7 +82,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     coreLibraryDesugaring(libs.desugarJdkLibs)
     
-    // Blur Library ထည့်ထားသည်
+    // Blur Library
     implementation("com.github.furkankaplan:fk-blur-view-android:1.0.1")
 }
 
