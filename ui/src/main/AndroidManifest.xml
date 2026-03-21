@@ -47,7 +47,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/GlassTheme">  <!-- AppTheme မှ GlassTheme ပြောင်း -->
+        android:theme="@style/AppTheme">  <!-- GlassTheme မှ AppTheme ပြောင်းပြီ -->
 
         <activity
             android:name=".activity.TunnelToggleActivity"
