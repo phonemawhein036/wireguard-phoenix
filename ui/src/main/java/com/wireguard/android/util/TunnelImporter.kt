@@ -29,16 +29,17 @@ import java.util.zip.ZipInputStream
 
 object TunnelImporter {
     
-    // 🔥 PHX ID စစ်တဲ့ Helper Function
+    // 🔥 PHX-VPN-ONLY စစ်တဲ့ Helper Function 🔥
     private fun extractRealConfig(configText: String): String? {
         val lines = configText.split("\n")
         val firstLine = lines.firstOrNull() ?: return null
         
-        if (!firstLine.startsWith("#PHX-")) {
-            return null  // PHX ID မပါရင် null ပြန်မယ်
+        // ပထမဆုံးလိုင်းက PHX-VPN-ONLY ဖြစ်ရမယ်
+        if (firstLine != "PHX-VPN-ONLY") {
+            return null  // မူရင်း WireGuard config ဆိုရင် ငြင်းမယ်
         }
         
-        // PHX ID ကိုဖယ်ပြီး မူရင်း config ကိုယူမယ်
+        // PHX-VPN-ONLY ကိုဖယ်ပြီး မူရင်း config ကိုယူမယ်
         return lines.drop(1).joinToString("\n")
     }
     
@@ -90,7 +91,7 @@ object TunnelImporter {
                         }
                         try {
                             val originalConfigText = reader.readText()
-                            // 🔥 PHX ID စစ်တယ်
+                            // 🔥 PHX-VPN-ONLY စစ်တယ် 🔥
                             val realConfigText = extractRealConfig(originalConfigText)
                             if (realConfigText == null) {
                                 throw IllegalArgumentException("This config is not for this app. Please get it from htugyi.netlify.app")
@@ -106,7 +107,7 @@ object TunnelImporter {
                     }
                 }
             } else {
-                // 🔥 File import အတွက် PHX ID စစ်တယ်
+                // 🔥 File import အတွက် PHX-VPN-ONLY စစ်တယ် 🔥
                 val originalConfigText = contentResolver.openInputStream(uri)!!.bufferedReader().readText()
                 val realConfigText = extractRealConfig(originalConfigText)
                 if (realConfigText == null) {
@@ -140,7 +141,7 @@ object TunnelImporter {
 
     fun importTunnel(parentFragmentManager: FragmentManager, configText: String, messageCallback: (CharSequence) -> Unit) {
         try {
-            // 🔥 QR Code import အတွက် PHX ID စစ်တယ်
+            // 🔥 QR Code import အတွက် PHX-VPN-ONLY စစ်တယ် 🔥
             val realConfigText = extractRealConfig(configText)
             if (realConfigText == null) {
                 throw IllegalArgumentException("This config is not for this app. Please get it from htugyi.netlify.app")
