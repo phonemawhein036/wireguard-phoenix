@@ -47,28 +47,4 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!-- ========== Glass Theme - ဖန်သားဒီဇိုင်း (အသစ်ထည့်ထားသည်) ========== -->
-    <style name="GlassTheme" parent="AppTheme">
-        <!-- နောက်ခံအရောင်ကို ပွင့်လင်းအောင်လုပ်မယ် -->
-        <item name="android:windowBackground">@color/glass_background</item>
-        <item name="android:windowIsTranslucent">true</item>
-        
-        <!-- Status Bar ကို ပွင့်လင်းအောင်လုပ်မယ် -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
-        
-        <!-- Navigation Bar ကို ပွင့်လင်းအောင်လုပ်မယ် -->
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        
-        <!-- MaterialCardView တွေကို ဖန်သားပုံစံပြောင်းမယ် -->
-        <item name="materialCardViewStyle">@style/GlassTheme.MaterialCardView</item>
-    </style>
-
-    <style name="GlassTheme.MaterialCardView" parent="Widget.Material3.CardView.Elevated">
-        <item name="cardBackgroundColor">@color/glass_card</item>
-        <item name="strokeColor">@color/glass_stroke</item>
-        <item name="strokeWidth">1dp</item>
-        <item name="cardElevation">0dp</item>
-        <item name="contentPadding">8dp</item>
-    </style>
 </resources>
