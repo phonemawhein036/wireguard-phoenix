@@ -4,59 +4,39 @@
   -->
 <resources>
     <!-- ========== မူရင်း WireGuard အရောင်များ ========== -->
-    <!-- Primary colors (Toolbar, Status Bar) -->
     <color name="primary">#2C3E50</color>
     <color name="primary_dark">#1A2632</color>
-    <color name="primary_light">#4A6A8A</color>
-    
-    <!-- Accent color (FAB, Switches, Links) -->
     <color name="accent">#81C784</color>
-    
-    <!-- Background & Surface -->
     <color name="background">#FFFFFF</color>
     <color name="surface">#FAFAFA</color>
-    <color name="card_background">#FFFFFF</color>
-    
-    <!-- Text colors -->
     <color name="text_primary">#212121</color>
     <color name="text_secondary">#757575</color>
-    <color name="text_hint">#BDBDBD</color>
-    
-    <!-- Divider & Border -->
-    <color name="divider">#E0E0E0</color>
-    
-    <!-- Error & Warning -->
     <color name="error">#D32F2F</color>
-    <color name="warning">#FFA000</color>
-    <color name="success">#388E3C</color>
-    
-    <!-- Status colors -->
     <color name="tunnel_active">#81C784</color>
     <color name="tunnel_inactive">#E0E0E0</color>
     
-    <!-- ========== Material Design 3 အတွက် လိုအပ်သောအရောင်များ ========== -->
-    <!-- Light theme -->
+    <!-- ========== Material Design 3 အတွက် (Glassmorphism မပါ) ========== -->
     <color name="seed">#2C3E50</color>
     <color name="md_theme_light_primary">#2C3E50</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
-    <color name="md_theme_light_primaryContainer">#C9E0FF</color>
-    <color name="md_theme_light_onPrimaryContainer">#001E3B</color>
+    <color name="md_theme_light_primaryContainer">#D8E2FF</color>
+    <color name="md_theme_light_onPrimaryContainer">#001A41</color>
     <color name="md_theme_light_secondary">#4A6A8A</color>
     <color name="md_theme_light_onSecondary">#FFFFFF</color>
-    <color name="md_theme_light_secondaryContainer">#D1E4FF</color>
-    <color name="md_theme_light_onSecondaryContainer">#002039</color>
+    <color name="md_theme_light_secondaryContainer">#DBE2F9</color>
+    <color name="md_theme_light_onSecondaryContainer">#131B2C</color>
     <color name="md_theme_light_tertiary">#81C784</color>
-    <color name="md_theme_light_onTertiary">#002200</color>
-    <color name="md_theme_light_tertiaryContainer">#B0F0B0</color>
-    <color name="md_theme_light_onTertiaryContainer">#002200</color>
+    <color name="md_theme_light_onTertiary">#FFFFFF</color>
+    <color name="md_theme_light_tertiaryContainer">#FBD7FC</color>
+    <color name="md_theme_light_onTertiaryContainer">#29132D</color>
     <color name="md_theme_light_error">#BA1A1A</color>
     <color name="md_theme_light_errorContainer">#FFDAD6</color>
     <color name="md_theme_light_onError">#FFFFFF</color>
     <color name="md_theme_light_onErrorContainer">#410002</color>
     <color name="md_theme_light_background">#FFFFFF</color>
-    <color name="md_theme_light_onBackground">#1C1B1F</color>
+    <color name="md_theme_light_onBackground">#1B1B1F</color>
     <color name="md_theme_light_surface">#FAFAFA</color>
-    <color name="md_theme_light_onSurface">#1C1B1F</color>
+    <color name="md_theme_light_onSurface">#1B1B1F</color>
     <color name="md_theme_light_surfaceVariant">#E1E2EC</color>
     <color name="md_theme_light_onSurfaceVariant">#44474F</color>
     <color name="md_theme_light_outline">#74777F</color>
@@ -70,17 +50,17 @@
     
     <!-- Dark theme -->
     <color name="md_theme_dark_primary">#81C784</color>
-    <color name="md_theme_dark_onPrimary">#003D33</color>
-    <color name="md_theme_dark_primaryContainer">#005B4D</color>
-    <color name="md_theme_dark_onPrimaryContainer">#9AFFE6</color>
+    <color name="md_theme_dark_onPrimary">#002E68</color>
+    <color name="md_theme_dark_primaryContainer">#004493</color>
+    <color name="md_theme_dark_onPrimaryContainer">#D8E2FF</color>
     <color name="md_theme_dark_secondary">#B0BEC5</color>
-    <color name="md_theme_dark_onSecondary">#1E2C33</color>
-    <color name="md_theme_dark_secondaryContainer">#354249</color>
-    <color name="md_theme_dark_onSecondaryContainer">#D4E5ED</color>
-    <color name="md_theme_dark_tertiary">#81C784</color>
-    <color name="md_theme_dark_onTertiary">#003D33</color>
-    <color name="md_theme_dark_tertiaryContainer">#005B4D</color>
-    <color name="md_theme_dark_onTertiaryContainer">#9AFFE6</color>
+    <color name="md_theme_dark_onSecondary">#283041</color>
+    <color name="md_theme_dark_secondaryContainer">#3F4759</color>
+    <color name="md_theme_dark_onSecondaryContainer">#DBE2F9</color>
+    <color name="md_theme_dark_tertiary">#DEBCDF</color>
+    <color name="md_theme_dark_onTertiary">#402843</color>
+    <color name="md_theme_dark_tertiaryContainer">#583E5B</color>
+    <color name="md_theme_dark_onTertiaryContainer">#FBD7FC</color>
     <color name="md_theme_dark_error">#FFB4AB</color>
     <color name="md_theme_dark_errorContainer">#93000A</color>
     <color name="md_theme_dark_onError">#690005</color>
@@ -94,9 +74,9 @@
     <color name="md_theme_dark_outline">#8E9099</color>
     <color name="md_theme_dark_inverseOnSurface">#1B1B1F</color>
     <color name="md_theme_dark_inverseSurface">#E3E2E6</color>
-    <color name="md_theme_dark_inversePrimary">#2C3E50</color>
+    <color name="md_theme_dark_inversePrimary">#005BC0</color>
     <color name="md_theme_dark_shadow">#000000</color>
-    <color name="md_theme_dark_surfaceTint">#81C784</color>
+    <color name="md_theme_dark_surfaceTint">#ADC7FF</color>
     <color name="md_theme_dark_outlineVariant">#44474F</color>
     <color name="md_theme_dark_scrim">#000000</color>
 </resources>
