@@ -76,6 +76,9 @@ public final class Config {
             line = line.trim();
             if (line.isEmpty())
                 continue;
+            // Skip Phoenix VPN header line (PHX-VPN-ONLY) — accept both Phoenix and standard WireGuard configs
+            if ("PHX-VPN-ONLY".equals(line))
+                continue;
             if (line.startsWith("[")) {
                 // Consume all [Peer] lines read so far.
                 if (inPeerSection) {
