@@ -29,18 +29,18 @@ import java.util.zip.ZipInputStream
 
 object TunnelImporter {
     
-    // 🔥 PHX-VPN-ONLY စစ်တဲ့ Helper Function 🔥
+    // Accept both PHX-VPN-ONLY (Phoenix) and standard WireGuard configs
     private fun extractRealConfig(configText: String): String? {
         val lines = configText.split("\n")
-        val firstLine = lines.firstOrNull() ?: return null
-        
-        // ပထမဆုံးလိုင်းက PHX-VPN-ONLY ဖြစ်ရမယ်
-        if (firstLine != "PHX-VPN-ONLY") {
-            return null  // မူရင်း WireGuard config ဆိုရင် ငြင်းမယ်
+        val firstLine = lines.firstOrNull()?.trim() ?: return null
+
+        // If PHX-VPN-ONLY header present, strip it and return rest
+        if (firstLine == "PHX-VPN-ONLY") {
+            return lines.drop(1).joinToString("\n")
         }
-        
-        // PHX-VPN-ONLY ကိုဖယ်ပြီး မူရင်း config ကိုယူမယ်
-        return lines.drop(1).joinToString("\n")
+
+        // Standard WireGuard config — accept as-is
+        return configText
     }
     
     suspend fun importTunnel(contentResolver: ContentResolver, uri: Uri, messageCallback: (CharSequence) -> Unit) = withContext(Dispatchers.IO) {
