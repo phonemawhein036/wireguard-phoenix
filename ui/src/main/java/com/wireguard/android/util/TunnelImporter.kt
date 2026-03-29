@@ -29,18 +29,24 @@ import java.util.zip.ZipInputStream
 
 object TunnelImporter {
     
-    // Accept both PHX-VPN-ONLY (Phoenix) and standard WireGuard configs
+    // ✅ PHX-VPN-ONLY (Phoenix) ရော Standard WireGuard configs ပါ လက်ခံရန် Logic
     private fun extractRealConfig(configText: String): String? {
-        val lines = configText.split("\n")
+        val trimmedConfig = configText.trim()
+        val lines = trimmedConfig.split("\n")
         val firstLine = lines.firstOrNull()?.trim() ?: return null
 
-        // If PHX-VPN-ONLY header present, strip it and return rest
+        // ၁။ PHX-VPN-ONLY header ပါရင် Header ကိုဖြုတ်ပြီး ကျန်တာကို ယူမယ်
         if (firstLine == "PHX-VPN-ONLY") {
-            return lines.drop(1).joinToString("\n")
+            return lines.drop(1).joinToString("\n").trim()
         }
 
-        // Standard WireGuard config — accept as-is
-        return configText
+        // ၂။ PHX-VPN-ONLY မပါဘူးဆိုရင် Standard WireGuard ဟုတ်မဟုတ် [Interface] စာသားနဲ့ ထပ်စစ်မယ်
+        if (trimmedConfig.contains("[Interface]", ignoreCase = true)) {
+            return trimmedConfig
+        }
+
+        // ၃။ နှစ်မျိုးလုံးနဲ့ မကိုက်ညီရင် null ပြန်မယ်
+        return null
     }
     
     suspend fun importTunnel(contentResolver: ContentResolver, uri: Uri, messageCallback: (CharSequence) -> Unit) = withContext(Dispatchers.IO) {
@@ -91,10 +97,10 @@ object TunnelImporter {
                         }
                         try {
                             val originalConfigText = reader.readText()
-                            // 🔥 PHX-VPN-ONLY စစ်တယ် 🔥
                             val realConfigText = extractRealConfig(originalConfigText)
                             if (realConfigText == null) {
-                                throw IllegalArgumentException("This config is not for this app. Please get it from htugyi.netlify.app")
+                                // ဖိုင်အမှားဖြစ်ပါက error ပြရန်
+                                throw IllegalArgumentException("Invalid Config Format")
                             }
                             Config.parse(ByteArrayInputStream(realConfigText.toByteArray(StandardCharsets.UTF_8)))
                         } catch (e: Throwable) {
@@ -107,11 +113,10 @@ object TunnelImporter {
                     }
                 }
             } else {
-                // 🔥 File import အတွက် PHX-VPN-ONLY စစ်တယ် 🔥
                 val originalConfigText = contentResolver.openInputStream(uri)!!.bufferedReader().readText()
                 val realConfigText = extractRealConfig(originalConfigText)
                 if (realConfigText == null) {
-                    throw IllegalArgumentException("This config is not for this app. Please get it from htugyi.netlify.app")
+                    throw IllegalArgumentException("This config is not for this app. Please get it from Phoenix VPN.")
                 }
                 futureTunnels.add(async(SupervisorJob()) { 
                     Application.getTunnelManager().create(name, Config.parse(ByteArrayInputStream(realConfigText.toByteArray(StandardCharsets.UTF_8)))) 
@@ -141,16 +146,12 @@ object TunnelImporter {
 
     fun importTunnel(parentFragmentManager: FragmentManager, configText: String, messageCallback: (CharSequence) -> Unit) {
         try {
-            // 🔥 QR Code import အတွက် PHX-VPN-ONLY စစ်တယ် 🔥
             val realConfigText = extractRealConfig(configText)
             if (realConfigText == null) {
-                throw IllegalArgumentException("This config is not for this app. Please get it from htugyi.netlify.app")
+                throw IllegalArgumentException("This config is not for this app. Please get it from Phoenix VPN.")
             }
             
-            // Ensure the config text is parseable before proceeding…
             Config.parse(ByteArrayInputStream(realConfigText.toByteArray(StandardCharsets.UTF_8)))
-
-            // Config text is valid, now create the tunnel…
             ConfigNamingDialogFragment.newInstance(realConfigText).show(parentFragmentManager, null)
         } catch (e: Throwable) {
             onTunnelImportFinished(emptyList(), listOf<Throwable>(e), messageCallback)
