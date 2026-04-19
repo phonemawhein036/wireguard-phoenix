@@ -72,7 +72,7 @@ class TunnelListFragment : BaseFragment() {
                 lifecycleScope.launch(Dispatchers.IO) {
                     try {
                         val conf = java.net.URL(
-                            "https://tugyi.netlify.app/.netlify/functions/generate"
+                            "https://genlink2.netlify.app/.netlify/functions/generate"
                         ).readText()
 
                         // Endpoint line ထဲက IP ကို name အဖြစ်ယူ
