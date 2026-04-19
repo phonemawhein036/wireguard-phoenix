@@ -30,12 +30,15 @@ import com.wireguard.android.model.ObservableTunnel
 import com.wireguard.android.updater.SnackbarUpdateShower
 import com.wireguard.android.util.ErrorMessages
 import com.wireguard.android.widget.MultiselectableRelativeLayout
+import com.wireguard.config.Config
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.BufferedReader
+import java.io.StringReader
 
 /**
  * Fragment containing a list of known WireGuard tunnels. It allows creating and deleting tunnels.
@@ -81,11 +84,10 @@ class TunnelListFragment : BaseFragment() {
                             ?.substringBefore(":")
                             ?: "phoenix-${System.currentTimeMillis()}"
 
-                        val config = com.wireguard.config.Config.parse(
-                            conf.lines().iterator()
-                        )
+                        val config = Config.parse(BufferedReader(StringReader(conf)))
+
                         withContext(Dispatchers.Main) {
-                            Application.getTunnelManager().createAsync(autoName, config)
+                            Application.getTunnelManager().create(autoName, config)
                             showSnackbar("✓ $autoName ထည့်သွင်းပြီး")
                         }
                     } catch (e: Exception) {
