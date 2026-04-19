@@ -1,4 +1,126 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { background: #1a1a1a; color: #fff; font-family: monospace; margin: 0; padding: 16px; }
+  button {
+    width: 100%;
+    padding: 16px;
+    background: #B8860B;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    margin-bottom: 16px;
+    cursor: pointer;
+  }
+  button.copied { background: #2e7d32; }
+  pre {
+    background: #2a2a2a;
+    padding: 12px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+</style>
+</head>
+<body>
+
+<button id="btn" onclick="copyAll()">📋 Copy XML</button>
+<pre id="content"><?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright © 2017-2025 WireGuard LLC. All Rights Reserved.
+  ~ SPDX-License-Identifier: Apache-2.0
+  -->
+&lt;layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"&gt;
+
+    &lt;data&gt;
+
+        &lt;import type="com.wireguard.android.model.ObservableTunnel" /&gt;
+
+        &lt;variable
+            name="fragment"
+            type="com.wireguard.android.fragment.TunnelListFragment" /&gt;
+
+        &lt;variable
+            name="rowConfigurationHandler"
+            type="com.wireguard.android.databinding.ObservableKeyedRecyclerViewAdapter.RowConfigurationHandler" /&gt;
+
+        &lt;variable
+            name="tunnels"
+            type="com.wireguard.android.databinding.ObservableKeyedArrayList&amp;lt;String, ObservableTunnel&amp;gt;" /&gt;
+    &lt;/data&gt;
+
+    &lt;androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorSurface"
+        android:clipChildren="false"&gt;
+
+        &lt;androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tunnel_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:nextFocusDown="@id/create_fab"
+            android:nextFocusForward="@id/create_fab"
+            android:paddingBottom="@{@dimen/design_fab_size_normal * 1.1f}"
+            android:visibility="@{tunnels.size() &gt; 0 ? android.view.View.VISIBLE : android.view.View.GONE}"
+            app:configurationHandler="@{rowConfigurationHandler}"
+            app:items="@{tunnels}"
+            app:layout="@{@layout/tunnel_list_item}"
+            tools:itemCount="12"
+            tools:listitem="@layout/tunnel_list_item" /&gt;
+
+        &lt;LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{tunnels.size() == 0 ? android.view.View.VISIBLE : android.view.View.GONE}"
+            tools:visibility="gone"&gt;
+
+            &lt;androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/logo_placeholder"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:alpha="0.3333333"
+                android:src="@mipmap/ic_launcher" /&gt;
+
+            &lt;TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/tunnel_list_placeholder_margin"
+                android:layout_marginEnd="@dimen/tunnel_list_placeholder_margin"
+                android:text="@string/tunnel_list_placeholder"
+                android:textSize="20sp" /&gt;
+        &lt;/LinearLayout&gt;
+
+        &lt;com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/create_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:nextFocusUp="@id/tunnel_list"
+            android:text="Generate"
+            android:textColor="@android:color/white" /&gt;
+
+    &lt;/androidx.coordinatorlayout.widget.CoordinatorLayout&gt;
+&lt;/layout&gt;</pre>
+
+<script>
+function copyAll() {
+  const text = `<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright © 2017-2025 WireGuard LLC. All Rights Reserved.
   ~ SPDX-License-Identifier: Apache-2.0
   -->
@@ -20,7 +142,7 @@
 
         <variable
             name="tunnels"
-            type="com.wireguard.android.databinding.ObservableKeyedArrayList&lt;String, ObservableTunnel&gt;" />
+            type="com.wireguard.android.databinding.ObservableKeyedArrayList<String, ObservableTunnel>" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -72,14 +194,29 @@
                 android:textSize="20sp" />
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/create_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:nextFocusUp="@id/tunnel_list"
-            app:srcCompat="@drawable/ic_action_add_white" />
+            android:text="Generate"
+            android:textColor="@android:color/white" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</layout>
+</layout>`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('btn');
+    btn.textContent = '✅ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 Copy XML';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
