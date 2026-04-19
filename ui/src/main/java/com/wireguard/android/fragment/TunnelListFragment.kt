@@ -29,7 +29,6 @@ import com.wireguard.android.databinding.TunnelListItemBinding
 import com.wireguard.android.model.ObservableTunnel
 import com.wireguard.android.updater.SnackbarUpdateShower
 import com.wireguard.android.util.ErrorMessages
-import com.wireguard.android.util.TunnelImporter
 import com.wireguard.android.widget.MultiselectableRelativeLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -72,8 +71,22 @@ class TunnelListFragment : BaseFragment() {
                         val conf = java.net.URL(
                             "https://tugyi.netlify.app/.netlify/functions/generate"
                         ).readText()
+
+                        // Endpoint line ထဲက IP ကို name အဖြစ်ယူ
+                        val endpointLine = conf.lines()
+                            .firstOrNull { it.trimStart().startsWith("Endpoint") }
+                        val autoName = endpointLine
+                            ?.substringAfter("=")
+                            ?.trim()
+                            ?.substringBefore(":")
+                            ?: "phoenix-${System.currentTimeMillis()}"
+
+                        val config = com.wireguard.config.Config.parse(
+                            conf.lines().iterator()
+                        )
                         withContext(Dispatchers.Main) {
-                            TunnelImporter.importTunnel(parentFragmentManager, conf) { showSnackbar(it) }
+                            Application.getTunnelManager().createAsync(autoName, config)
+                            showSnackbar("✓ $autoName ထည့်သွင်းပြီး")
                         }
                     } catch (e: Exception) {
                         Log.e(TAG, "Failed to fetch config", e)
