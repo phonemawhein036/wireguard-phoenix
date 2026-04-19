@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body { background: #1a1a1a; color: #fff; font-family: monospace; margin: 0; padding: 16px; }
-button { width: 100%; padding: 16px; background: #B8860B; color: white; border: none; border-radius: 12px; font-size: 18px; margin-bottom: 16px; cursor: pointer; }
+button { width: 100%; padding: 16px; background: #1565c0; color: white; border: none; border-radius: 12px; font-size: 18px; margin-bottom: 16px; cursor: pointer; }
 button.copied { background: #2e7d32; }
 pre { background: #2a2a2a; padding: 12px; border-radius: 8px; overflow-x: auto; font-size: 11px; white-space: pre-wrap; word-break: break-all; }
 </style>
@@ -15,7 +15,7 @@ pre { background: #2a2a2a; padding: 12px; border-radius: 8px; overflow-x: auto; 
 <pre id="code"></pre>
 <script>
 const xml = `<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright \u00a9 2017-2025 WireGuard LLC. All Rights Reserved.
+  ~ Copyright © 2017-2025 WireGuard LLC. All Rights Reserved.
   ~ SPDX-License-Identifier: Apache-2.0
   -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -102,10 +102,10 @@ document.getElementById('code').textContent = xml;
 function copyAll() {
   navigator.clipboard.writeText(xml).then(() => {
     const btn = document.getElementById('btn');
-    btn.textContent = '\u2705 Copied!';
+    btn.textContent = '✅ Copied!';
     btn.classList.add('copied');
     setTimeout(() => {
-      btn.textContent = '\ud83d\udccb Copy XML';
+      btn.textContent = '📋 Copy XML';
       btn.classList.remove('copied');
     }, 2000);
   });
